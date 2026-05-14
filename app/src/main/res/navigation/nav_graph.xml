@@ -28,4 +28,21 @@
         android:label="@string/forest"
         tools:layout="@layout/fragment_forest" />
 
+    <fragment
+        android:id="@+id/plantCatalogueFragment"
+        android:name="pl.bk20.forest.catalogue.presentation.PlantCatalogueFragment"
+        android:label="@string/catalogue_title"
+        tools:layout="@layout/fragment_plant_catalogue" />
+
+    <fragment
+        android:id="@+id/plantDetailFragment"
+        android:name="pl.bk20.forest.catalogue.presentation.PlantDetailFragment"
+        android:label="@string/catalogue_title"
+        tools:layout="@layout/fragment_plant_detail">
+        <argument
+            android:name="plantId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+
 </navigation>

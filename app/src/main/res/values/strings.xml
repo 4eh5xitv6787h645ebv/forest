@@ -21,6 +21,19 @@
     <string name="forest">Forest</string>
     <string name="tree">Tree</string>
     <string name="stats">Stats</string>
+    <string name="catalogue">Plants</string>
+
+    <!-- Plant catalogue -->
+    <string name="catalogue_title">Australian Plants</string>
+    <string name="catalogue_search_hint">Search 1000+ Australian natives</string>
+    <string name="catalogue_visible_count">%1$d of %2$d species</string>
+    <string name="catalogue_empty">No plants match your search</string>
+    <string name="detail_family">Family: %1$s</string>
+    <string name="detail_habit">Habit: %1$s</string>
+    <string name="detail_height">Height: %1$.1f – %2$.1f m</string>
+    <string name="detail_regions">Typical genus range: %1$s</string>
+    <string name="detail_open_wikipedia">Read on Wikipedia</string>
+    <string name="detail_no_browser">No browser available to open Wikipedia</string>
 
     <!-- Forest -->
     <plurals name="trees">

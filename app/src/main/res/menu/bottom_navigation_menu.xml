@@ -16,4 +16,9 @@
         android:icon="@drawable/show_chart_fill0_wght400_grad0_opsz24"
         android:title="@string/stats" />
 
+    <item
+        android:id="@+id/plantCatalogueFragment"
+        android:icon="@drawable/local_florist_fill0_wght400_grad0_opsz24"
+        android:title="@string/catalogue" />
+
 </menu>

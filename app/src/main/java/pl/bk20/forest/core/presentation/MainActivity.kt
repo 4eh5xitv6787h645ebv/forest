@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.progressFragment,
                 R.id.statsFragment,
                 R.id.forestFragment,
+                R.id.plantCatalogueFragment,
             )
         )
 

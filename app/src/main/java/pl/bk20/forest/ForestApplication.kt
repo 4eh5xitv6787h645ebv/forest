@@ -8,7 +8,15 @@ import android.content.IntentFilter
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import com.google.android.material.color.DynamicColors
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import pl.bk20.forest.catalogue.data.repository.PlantRepositoryImpl
+import pl.bk20.forest.catalogue.data.source.PlantJsonSource
+import pl.bk20.forest.catalogue.domain.repository.PlantRepository
+import pl.bk20.forest.catalogue.util.PlantSlots
 import pl.bk20.forest.core.data.source.ForestDatabase
 import pl.bk20.forest.settings.data.source.SettingsStore
 import pl.bk20.forest.settings.data.source.SettingsStoreImpl
@@ -18,6 +26,10 @@ class ForestApplication : Application() {
 
     lateinit var settingsStore: SettingsStore
     lateinit var forestDatabase: ForestDatabase
+    lateinit var plantRepository: PlantRepository
+    lateinit var plantSlots: PlantSlots
+
+    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     val currentDate = MutableStateFlow<LocalDate>(LocalDate.now())
 
@@ -36,6 +48,17 @@ class ForestApplication : Application() {
             ForestDatabase::class.java,
             ForestDatabase.DATABASE_NAME
         ).build()
+
+        plantRepository = PlantRepositoryImpl(PlantJsonSource(this))
+        plantSlots = PlantSlots()
+
+        // Pre-warm the catalogue cache off the main thread so the first
+        // navigation to the Plants tab or Forest screen doesn't pay a 200ms+
+        // parse on the UI thread.
+        applicationScope.launch(Dispatchers.IO) {
+            val plants = plantRepository.loadAll()
+            plantSlots.prepare(plants)
+        }
     }
 
     private fun registerMidnightTimer() {
